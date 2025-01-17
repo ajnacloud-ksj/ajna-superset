@@ -48,6 +48,8 @@ export default function transformProps(
     queriesData,
     theme,
     width,
+    minValueColumn,
+    maxValueColumn,
   } = chartProps;
   const { onLegendStateChanged } = hooks;
   const {
@@ -90,6 +92,10 @@ export default function transformProps(
 
   const minBin = findBin(minValue, binNames);
   const maxBin = findBin(maxValue, binNames);
+
+
+  // const firstMinValue = minValueColumn ? (minValueColumn as any[])[0] : null;
+  // const firstMaxValue = maxValueColumn ? maxValueColumn[0] : null;
 
   // warning if minBin or maxBin is null
   if (!minBin) {
@@ -180,6 +186,17 @@ export default function transformProps(
 
   type EChartsOption = ComposeOption<GridComponentOption | BarSeriesOption>;
 
+  const firstXAxisValue = xAxisData[0];
+  console.log('queriesData:', queriesData);
+
+
+  console.log('minValueColumn',minValueColumn);
+  console.log('maxValueColumn:', maxValueColumn);
+
+  console.log('xAxisData : ', xAxisData);
+  console.log('data : ', data);
+
+
   const echartOptions: EChartsOption = {
     grid: {
       ...defaultGrid,
@@ -210,7 +227,7 @@ export default function transformProps(
       ...series,
       markLine: {
         data: [
-          { xAxis: minBin ?? "null", 
+          { xAxis: firstXAxisValue ?? "null", 
             label: { formatter: () => minValue ? minValue.toString() : 'minValue' },
             lineStyle: {
               color: 'red',
@@ -226,6 +243,12 @@ export default function transformProps(
               width: 2,
             }
            } as any,
+          //  {
+          //   xAxis: firstMinValue, // Use the first value of minValueColumn
+          // },
+          // {
+          //   xAxis: firstMaxValue, // Use the first value of maxValueColumn
+          // },
           ...trendLineData,
         ],
         label: {

@@ -54,6 +54,40 @@ const config: ControlPanelConfig = {
             },
           },
         ],
+        [
+          {
+            name: 'maxValueColumn',
+            config: {
+              ...dndGroupByControl,
+              label: t('Max Value Column'),
+              description: t('Select a column for the maximum value.'),
+              multi: false,
+              validators: [validateNonEmpty],
+              freeForm: false,
+              disabledTabs: new Set(['saved', 'sqlExpression']),
+              mapStateToProps: ({ datasource }) => ({
+                options: columnsByType(datasource, GenericDataType.Numeric),
+              }),
+            },
+          },
+        ],
+        [
+          {
+            name: 'minValueColumn',
+            config: {
+              ...dndGroupByControl,
+              label: t('Min Value Column'),
+              description: t('Select a column for the minimum value.'),
+              multi: false,
+              validators: [validateNonEmpty],
+              freeForm: false,
+              disabledTabs: new Set(['saved', 'sqlExpression']),
+              mapStateToProps: ({ datasource }) => ({
+                options: columnsByType(datasource, GenericDataType.Numeric),
+              }),
+            },
+          },
+        ],
         ['groupby'],
         ['adhoc_filters'],
         ['row_limit'],
@@ -135,33 +169,33 @@ const config: ControlPanelConfig = {
             },
           },
         ],
-        [
-          {
-            name: 'min_value',
-            config: {
-              type: 'TextControl',
-              label: t('Minimum Acceptable Value'),
-              renderTrigger: true,
-              default: 0,
-              description: t('Enter the minimum acceptable value'),
-            },
-          },
-        ],
-        [
-          {
-            name: 'max_value',
-            config: {
-              type: 'TextControl',
-              label: t('Maximum Acceptable Value'),
-              renderTrigger: true,
-              default: 0,
-              description: t('Enter the maximum acceptable value'),
-            },
-          },
-        ],
+        // [
+        //   {
+        //     name: 'min_value',
+        //     config: {
+        //       type: 'TextControl',
+        //       label: t('Minimum Acceptable Value'),
+        //       renderTrigger: true,
+        //       default: 0,
+        //       description: t('Enter the minimum acceptable value'),
+        //     },
+        //   },
+        // ],
+        // [
+        //   {
+        //     name: 'max_value',
+        //     config: {
+        //       type: 'TextControl',
+        //       label: t('Maximum Acceptable Value'),
+        //       renderTrigger: true,
+        //       default: 0,
+        //       description: t('Enter the maximum acceptable value'),
+        //     },
+        //   },
+        // ],
       ],
     },
-  ],
+  ],  
 };
 
 export default config;

@@ -120,6 +120,8 @@ export enum LabelPositionEnum {
 
 export interface BaseChartProps<T extends PlainObject> extends ChartProps<T> {
   queriesData: ChartDataResponseResult[];
+  minValueColumn: ChartDataResponseResult[];
+  maxValueColumn: ChartDataResponseResult[];
 }
 
 export interface BaseTransformedProps<F> {
